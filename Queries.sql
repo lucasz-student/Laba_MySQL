@@ -1,16 +1,5 @@
 USE universitydb;
 
-/* 
-10 statements for insertion. DONE 
-10 statements for updating.
-10 statements for deletions. DONE
-5 alter table. DONE
- 1 big statement to join all tables in the database.
-5 statements with left, right, inner, outer joins.      
-7 statements with aggregate functions and group by and without having.
-7 statements with aggregate functions and group by and with having.
-*/
-
 ALTER TABLE class
 DROP Classcol; 
 
