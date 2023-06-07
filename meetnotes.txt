@@ -1,0 +1,14 @@
+one java project
+one database project
+team project 
+
+then
+
+test automation
+
+db block is only 4 weeks 
+another exam 
+
+
+3rd block -  the tools used in test automation - management tools, etc 
+4th block - test automation
