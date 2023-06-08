@@ -1,140 +1,207 @@
-<<<<<<< HEAD
-=======
-USE universitydb;
+USE  universityDB;
 
-ALTER TABLE class
-DROP Classcol; 
+DELETE FROM Student;
+DELETE FROM Class;
+DELETE FROM Textbook;
+DELETE FROM Professor;
+DELETE FROM Professor_has_Student;
+DELETE FROM ResearchLab;
+DELETE FROM ResearchLab_has_Professor;
+DELETE FROM Student_has_ResearchLab;
+DELETE FROM Class_has_Student;
+DELETE FROM SportsTeam;
+DELETE FROM SportsTeam_has_Student;
+DELETE FROM Gym;
 
-ALTER TABLE professor
-ADD SchoolGraduatedFrom VARCHAR(40);
+ALTER TABLE Student AUTO_INCREMENT = 1;
+ALTER TABLE Class AUTO_INCREMENT = 1;
+ALTER TABLE Textbook AUTO_INCREMENT = 1;
+ALTER TABLE Professor AUTO_INCREMENT = 1;
+ALTER TABLE Professor_has_Student AUTO_INCREMENT = 1;
+ALTER TABLE ResearchLab AUTO_INCREMENT = 1;
+ALTER TABLE ResearchLab_has_Professor AUTO_INCREMENT = 1;
+ALTER TABLE Student_has_ResearchLab AUTO_INCREMENT = 1;
+ALTER TABLE Class_has_Student AUTO_INCREMENT = 1;
+ALTER TABLE SportsTeam AUTO_INCREMENT = 1;
+ALTER TABLE SportsTeam_has_Student AUTO_INCREMENT = 1;
+ALTER TABLE Gym AUTO_INCREMENT = 1;
 
-ALTER TABLE sportsteam
-ADD yearEstablished VARCHAR(40);
+INSERT INTO Student (name, yearJoined, major) VALUES
+('John Doe', 2020, 'Computer Science'),
+('Jane Smith', 2019, 'Physics'),
+('Mike Johnson', 2021, 'Biology'),
+('Luke Cage', 2021, 'Biology');
 
-ALTER TABLE textbooks 
-ADD yearPublished VARCHAR(40);
+INSERT INTO Class (name, subject) VALUES
+('Math101', 'Mathematics'),
+('Physics202', 'Physics'),
+('Biology101', 'Biology'),
+('AdvancedMath', 'Mathematics'),
+('Chemistry', 'Chemistry');
 
-ALTER TABLE researchlab
-DROP age; 
+INSERT INTO Textbook (name, Student_id, bookCondition, Class_id) VALUES
+('Calculus I', 1, 'Good', 1),
+('Physics I', 2, 'Excellent', 2),
+('Biology Intro', 3, 'Fair', 3),
+('Calculus II', 1, 'New', 4),
+('Chemistry PreReq', 2, 'UNUSABLE', 5);
 
-ALTER TABLE researchlab 
-ADD yearEstablished INT;
+INSERT INTO Textbook (name, student_id, bookCondition) VALUES
+('BookNoClass', 1, 'New');
 
-ALTER TABLE textbook
-ADD bookCondition VARCHAR(45);
+INSERT INTO Professor (name, age, Class_id) VALUES
+('Dr. Smith', 40, 1),
+('Dr. Dubar', 45, 2),
+('Dr. Eggs', 55, 3);
 
-INSERT INTO student(name, year, major)
-VALUES 
-	('John', 1, 'Chemistry'),
-    ('Santa', 2, 'Physics'),
-    ('Greg', 1, 'Mathematics'),
-    ('Fu', 2, 'Mathematics'),
-    ('Bar', 3, 'Mathematics');
-    
-INSERT INTO class(name, subject)
-VALUES 
-	('IntroToChem', 'Science'),
-	('OrganicChem', 'Science'), 
-	('Calc I', 'Math'),
-    ('Calc II', 'Math'),
-    ('Linear Algebra', 'Math'),
-    ('Pure Mathematics', 'Math');
+INSERT INTO Professor_has_Student (Professor_id, Student_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
-INSERT INTO class_has_student(Class_idClass, Student_idStudent) 
-VALUES 
-	(1, 1),
-    (1, 2),
-    (2, 3),
-    (3, 1),
-    (3, 2);
-    
-INSERT INTO professor(name, age, className) 
-VALUES 
-	('Dr. John', 45, 'Bio I'),
-    ('Dr. Fubar', 60, 'Trig I'),
-    ('Dr. Doe', 91, 'Econ I'),
-    ('Dr. Fervor', 100, 'Gov I'),
-    ('Dr. Eggs', 75, 'Geometry');
-    
-INSERT INTO professor_has_student(Teachers_idTeachers, Students_idStudent)
-VALUES 
-	(1, 2),
-    (3, 1),
-    (2, 3),
-    (4, 1);
-    
-INSERT INTO sportsteam(sportName, gamesPlayed, yearEstablished)
-VALUES
-	('Football', 100, 1999),
-    ('Lacrosse', 50, 2000),
-    ('Hockey', 60, 2010),
-    ('Soccer', 10, 1950),
-    ('Tennis', 5, 1900),
-    ('Swim', 40, 1980);
-    
-INSERT INTO sportsteam_has_student(SportsTeam_idSportsTeam, Student_idStudents) 
-VALUES
-	(1, 3),
-	(2, 1),
-	(1, 2);
+INSERT INTO ResearchLab (papersPublished, age, name, topic) VALUES
+(10, 5, 'Biology Lab', 'Genetics'),
+(5, 3, 'Physics Lab', 'Quantum Mechanics'),
+(5, 2, 'Physics Lab', 'Time Travel'),
+(602, 60, 'Einstein', 'Time Travel'),
+(509, 35, 'Physics Lab', 'Astronomy'),
+(123, 35, 'Computer Science', 'AI'),
+(430, 23, 'Sasha Lab', 'Quantum Mechanics'),
+(221, 15, 'Hikaru Lab', 'Quantum Mechanics'),
+(140, 25, 'Levon Lab', 'Quantum Mechanics');
 
-INSERT INTO researchlab(papersPublished, age, name, topic) 
-VALUES 
-	(11, 10, 'GeneticsLab', 'Science'),
-    (20, 1, 'EvoLab', 'Evolution'), 
-    (10, 4, 'Chemlab', 'CompoundMixing'),
-    (1, 12, 'Mylab', 'History'),
-    (5, 14, 'Cruzlab', 'DNATesting'),
-    (5, 20, 'Jokiclab', 'virology');
-    
-INSERT INTO student_has_researchlab(Students_idStudents, ResearchLabs_idResearchLabs)
-VALUES 
-	(1, 3),
-    (1, 2),
-    (1, 4),
-    (2, 5),
-    (3, 5);
-    
-INSERT INTO textbook(name, bookCondition)
-VALUES 
-	('BiologyTextBook', 'Brand New'),
-    ('Calculus 2', 'Slightly Used'),
-    ('BiologyTextBook', 'UNUSABLE'),
-    ('IntroBiologyTextBook', 'UNUSABLE');
+INSERT INTO ResearchLab_has_Professor (ResearchLab_id, Professor_id) VALUES
+(1, 1),
+(2, 2);
 
-DELETE FROM textbook WHERE bookCondition='UNUSABLE';
-DELETE FROM researchlab WHERE papersPublished<10;
-DELETE FROM student WHERE name='Santa';
-DELETE FROM professor WHERE age>80;
-DELETE FROM class WHERE name='Pure Mathematics';
-DELETE FROM class WHERE name='calc II';
-DELETE FROM student_has_researchlab WHERE Students_idStudents=1 AND ResearchLabs_idResearchLabs=4;
-DELETE FROM sportsteam WHERE gamesPlayed<30;
-DELETE FROM sportsteam WHERE yearEstablished<1930;
-DELETE FROM professor WHERE name='Dr. Eggs';
+INSERT INTO Student_has_ResearchLab (Student_id, ResearchLab_id) VALUES
+(1, 1),
+(2, 2),
+(3, 1);
 
-UPDATE student 
-SET major='biochem'
-WHERE name='John';
+INSERT INTO Class_has_Student (Class_id, Student_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 1),
+(4, 2),
+(3, 2);
 
-SELECT student.major, textbook.name FROM student
-INNER JOIN textbook ON student.idStudents=textbook.idTextbooks;
+INSERT INTO SportsTeam (sportName, gamesPlayed) VALUES
+('Football', 10),
+('Basketball', 15),
+('Baseball', 8);
 
-SELECT student.major, textbook.name FROM student
-LEFT JOIN textbook ON student.idStudents=textbook.idTextbooks;
+INSERT INTO SportsTeam_has_Student (SportsTeam_id, Student_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
-SELECT student.major, textbook.name FROM student
-RIGHT JOIN textbook ON student.idStudents=textbook.idTextbooks;
+INSERT INTO Gym (Location, gymAge, Student_id, price) VALUES
+('Building A', 3, 1, 50),
+('Building B', 5, 2, 40),
+('Building C', 2, 3, 60);
 
-SELECT max(year), major FROM student
-GROUP BY major;
+UPDATE Student SET major = 'Computer Science' WHERE id = 1;
+UPDATE Class SET name = 'Physics I' WHERE id = 2;
+UPDATE Textbook SET bookCondition = 'Good' WHERE id = 3;
+UPDATE Professor SET age = 82 WHERE id = 1;
+UPDATE ResearchLab SET name = 'Chemlab' WHERE id = 2;
+UPDATE ResearchLab SET topic = 'Nootropics' WHERE id = 2;
+UPDATE SportsTeam SET gamesPlayed = 10 WHERE id = 1;
+UPDATE Gym SET Location = 'Building C, 2nd Floor' WHERE id = 2;
+UPDATE Student SET name = 'Lucas Hsieh' WHERE id = 1;
+UPDATE Professor SET name = 'Dr. Sunrise' WHERE id = 2;
+UPDATE Class_has_Student SET Student_id = 2 WHERE Class_id = 1;
 
-SELECT max(year), major FROM student
-GROUP BY major HAVING max(year)>1;
+SELECT * 
+FROM Student
+JOIN class_has_student on class_has_student.Student_id=Student_id
+JOIN class on class.id=class_has_student.student_id
+JOIN professor on professor.Class_id=class.id
+JOIN researchlab_has_professor on researchlab_has_professor.Professor_id=professor.id
+JOIN researchlab on researchlab.id=researchlab_has_professor.ResearchLab_id
+JOIN sportsteam_has_student on sportsteam_has_student.Student_id=student.id
+JOIN sportsteam on sportsteam_has_student.SportsTeam_id=sportsteam.id
+JOIN student_has_researchlab on student_has_researchlab.Student_id=student.id
+JOIN gym on gym.Student_id=student.id;
+
+SELECT * FROM student 
+JOIN class_has_student on class_has_student.student_id=student.id
+JOIN class on class_has_student.class_id=class.id;
+
+SELECT *
+FROM Gym
+LEFT JOIN Student ON Gym.Student_id = Student.id
+UNION
+SELECT *
+FROM Gym
+RIGHT JOIN Student ON Gym.Student_id = Student.id;
+
+SELECT * FROM student
+LEFT JOIN class_has_student ON class_has_student.student_id=student.id
+LEFT JOIN class on class.id=class_has_student.class_id;
+
+SELECT * FROM class
+RIGHT JOIN textbook on textbook.class_id=class.id;
+
+SELECT * FROM student
+JOIN gym on student.id=gym.student_id;
 
 
+SELECT name, min(age) FROM professor
+GROUP BY name;
+
+SELECT name, max(age) FROM professor
+GROUP BY name;
+
+SELECT subject, count(student_id) FROM class
+JOIN class_has_student on class_has_student.class_id=class.id
+JOIN student on student.id=class_has_student.student_id
+GROUP BY subject;
+
+SELECT class.name, count(student_id) FROM class
+JOIN class_has_student on class_has_student.class_id=class.id
+JOIN student on student.id=class_has_student.student_id
+GROUP BY class.name;
+
+SELECT age, max(researchlab.papersPublished) as MostPapersPublished from researchLab
+GROUP BY age; 
+
+SELECT name, max(researchlab.papersPublished) as MostPapersPublished from researchLab
+GROUP BY name; 
+
+SELECT topic, max(researchlab.papersPublished) as MostPapersPublished from researchLab
+GROUP BY topic; 
 
 
 
+SELECT name, min(age) FROM professor
+GROUP BY name HAVING min(age)>30;
 
->>>>>>> 9243d643e70accd366c1f32b25d90efb439679fe
+SELECT name, max(age) FROM professor
+GROUP BY name HAVING min(age)<50;
+
+SELECT subject, count(student_id) FROM class
+JOIN class_has_student on class_has_student.class_id=class.id
+JOIN student on student.id=class_has_student.student_id
+GROUP BY subject
+HAVING subject!='Mathematics';
+
+SELECT class.name, count(student_id) FROM class
+JOIN class_has_student on class_has_student.class_id=class.id
+JOIN student on student.id=class_has_student.student_id
+GROUP BY class.name
+HAVING class.name!='Calculus I';
+
+SELECT age, max(researchlab.papersPublished) as MostPapersPublished from researchLab
+GROUP BY age
+HAVING age>10; 
+
+SELECT name, max(researchlab.papersPublished) as MostPapersPublished from researchLab
+GROUP BY name
+HAVING name!='Einstein Lab'; 
+
+SELECT topic, max(researchlab.papersPublished) as MostPapersPublished from researchLab
+GROUP BY topic
+HAVING topic!='Time Travel'; 
