@@ -8,7 +8,6 @@ public class Professor {
 	private int id;
 	private String name; 
 	private int age; 
-	private int Class_id;
 	private UniClass Class;
 
 	private List<Student> Students = new ArrayList<>();
@@ -18,11 +17,11 @@ public class Professor {
 		
 	}
 	
-	public Professor(int id, String name, int age, int Class_id) {
+	public Professor(int id, String name, int age, UniClass C) {
 		this.id=id; 
 		this.name=name;
 		this.age=age;
-		this.Class_id=Class_id;
+		this.Class = C;
 	}
 
 	public int getId() {
@@ -47,14 +46,6 @@ public class Professor {
 
 	public void setAge(int age) {
 		this.age = age;
-	}
-
-	public int getClass_id() {
-		return Class_id;
-	}
-
-	public void setClass_id(int class_id) {
-		Class_id = class_id;
 	}
 
 	public UniClass getUniClass() {

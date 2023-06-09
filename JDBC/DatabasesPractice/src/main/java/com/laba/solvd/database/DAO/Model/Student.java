@@ -88,7 +88,7 @@ public class Student {
 		this.SportsTeams.add(SportsTeam);
 	}
 	
-	public void removeSportsTeam(TextBook SportsTeam) {
+	public void removeSportsTeam(SportsTeam SportsTeam) {
 		this.SportsTeams.remove(SportsTeam);
 	}
 	

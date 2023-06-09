@@ -97,10 +97,10 @@ INSERT INTO SportsTeam_has_Student (SportsTeam_id, Student_id) VALUES
 (2, 2),
 (3, 3);
 
-INSERT INTO Gym (Location, gymAge, Student_id, price) VALUES
-('Building A', 3, 1, 50),
-('Building B', 5, 2, 40),
-('Building C', 2, 3, 60);
+INSERT INTO Gym (Location, gymAge, price) VALUES
+('Building A', 3, 50),
+('Building B', 5, 40),
+('Building C', 2, 60);
 
 UPDATE Student SET major = 'Computer Science' WHERE id = 1;
 UPDATE Class SET name = 'Physics I' WHERE id = 2;
@@ -189,7 +189,7 @@ GROUP BY subject
 HAVING subject!='Mathematics';
 
 SELECT class.name, count(student_id) FROM class
-JOIN class_has_student on class_has_student.class_id=class.id
+JOIN class_has_stu dent on class_has_student.class_id=class.id
 JOIN student on student.id=class_has_student.student_id
 GROUP BY class.name
 HAVING class.name!='Calculus I';

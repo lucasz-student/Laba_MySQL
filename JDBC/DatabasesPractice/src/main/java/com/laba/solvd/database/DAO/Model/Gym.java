@@ -57,4 +57,8 @@ public class Gym {
 	public void addStudent(Student student) {
 		this.Students.add(student);
 	}
+	
+	public void removeStudent(Student student) {
+		this.Students.remove(student);
+	}
 }
