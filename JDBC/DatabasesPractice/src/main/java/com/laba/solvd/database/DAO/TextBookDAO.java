@@ -25,7 +25,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO textbook(name, Student_id, bookCondition, Class_id) VALUES(?, ?, ?, ?)");
 			ps.setString(1, textBook.getName());
 			ps.setInt(2, student.getId());
@@ -47,7 +47,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM textbook");
 			ResultSet resultSet = ps.executeQuery();
 			
@@ -74,7 +74,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement psTextBookFields = connection.prepareStatement("SELECT * FROM student WHERE id=?");
 			psTextBookFields.setInt(1, Id);
 			ResultSet TextBookFields = psTextBookFields.executeQuery();
@@ -98,7 +98,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement DeleteTextBook = connection.prepareStatement("DELETE FROM textbook WHERE id=?");
 			DeleteTextBook.setInt(1, TextBook.getId());
 			DeleteTextBook.executeUpdate();
@@ -114,7 +114,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement UpdateTextBook = connection.prepareStatement("UPDATE textbook set name=?, set Student_id=?, set bookCondition=?, set Class_id WHERE id=?");
 			UpdateTextBook.setString(1, textBook.getName());
 			UpdateTextBook.setInt(2, textBook.getStudent().getId());
@@ -133,7 +133,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("UPDATE textbook set Student_id=? WHERE id=?");
 			ps.setInt(1, student.getId());
 			ps.setInt(2, textBook.getId());
@@ -151,7 +151,7 @@ public class TextBookDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("UPDATE textbook set Class_id=? WHERE id=?");
 			ps.setInt(1, C.getId());
 			ps.setInt(2, textBook.getId());

@@ -24,7 +24,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO sportsteam(sportName, gamesPlayed) VALUES(?, ?)");
 			ps.setString(1, sportsTeam.getSportName());
 			ps.setInt(2, sportsTeam.getGamesPlayed());
@@ -45,7 +45,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sportsteam");
 			ResultSet resultSet = ps.executeQuery();
 			
@@ -70,7 +70,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement psSportsTeamFields = connection.prepareStatement("SELECT * FROM sportsteam WHERE id=?");
 			psSportsTeamFields.setInt(1, Id);
 			ResultSet SportsTeamFields = psSportsTeamFields.executeQuery();
@@ -91,7 +91,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement DeleteSportsTeam = connection.prepareStatement("DELETE FROM sportsteam WHERE id=?");
 			DeleteSportsTeam.setInt(1, sportsTeam.getId());
 			DeleteSportsTeam.executeUpdate();
@@ -107,7 +107,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement UpdateSportsTeam = connection.prepareStatement("UPDATE sportsteam set sportName=?, gamesPlayed=? WHERE id=?");
 			UpdateSportsTeam.setString(1, sportsTeam.getSportName());
 			UpdateSportsTeam.setInt(2, sportsTeam.getGamesPlayed());
@@ -126,7 +126,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT Student_id FROM sportsteam_has_student where SportsTeam_id=?");
 			ps.setInt(1, sportsTeam.getId());
 			ResultSet ids = ps.executeQuery();
@@ -146,7 +146,7 @@ public class SportsTeamDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO sportsteam_has_student(SportsTeam_id, Student_id) VALUES(?, ?)");
 			ps.setInt(1, sportsTeam.getId());
 			ps.setInt(2, student.getId());

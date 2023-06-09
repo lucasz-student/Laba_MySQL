@@ -26,7 +26,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO class(name, subject) VALUES(?, ?)");
 			ps.setString(1, uniClass.getName());
 			ps.setString(2, uniClass.getSubject());
@@ -46,7 +46,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM class");
 			ResultSet resultSet = ps.executeQuery();
 			
@@ -72,7 +72,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement psUniClassFields = connection.prepareStatement("SELECT * FROM class WHERE id=?");
 			psUniClassFields.setInt(1, Id);
 			ResultSet UniClassFields = psUniClassFields.executeQuery();
@@ -94,7 +94,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement DeleteUniClass = connection.prepareStatement("DELETE FROM class WHERE id=?");
 			DeleteUniClass.setInt(1, uniClass.getId());
 			DeleteUniClass.executeUpdate();
@@ -110,7 +110,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement UpdateUniClass = connection.prepareStatement("UPDATE class set name=?, set subject=? WHERE id=?");
 			UpdateUniClass.setString(1, uniClass.getName());
 			UpdateUniClass.setString(2, uniClass.getSubject());
@@ -128,7 +128,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("UPDATE textbook set Class_id=? WHERE id=?");
 			ps.setInt(1, C.getId());
 			ps.setInt(2, textBook.getId());
@@ -146,7 +146,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("UPDATE professor set Class_id=? WHERE id=?");
 			ps.setInt(1, C.getId());
 			ps.setInt(2, professor.getId());
@@ -164,7 +164,7 @@ public class UniClassDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO class_has_student(Class_id, Student_id) VALUES(?, ?)");
 			ps.setInt(1, C.getId());
 			ps.setInt(2, student.getId());

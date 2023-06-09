@@ -21,15 +21,15 @@ public class GymService {
 		return this.GymDAO.getGymById(Id);
 	}
 	
-	public List<Gym> getAllProfessors() {
+	public List<Gym> getAllGyms() {
 		return this.GymDAO.getAllGyms();
 	}
 	
-	public void updateProfessor(Gym Gym) {
+	public void updateGym(Gym Gym) {
 		this.GymDAO.updateGym(Gym);
 	}
 	
-	public void deletProfessor(Gym Gym) {
+	public void deleteGym(Gym Gym) {
 		this.GymDAO.deleteGym(Gym);
 	}
 }

@@ -28,7 +28,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO Student(name, yearJoined, major, Gym_id) VALUES(?, ?, ?, ?)");
 			ps.setString(1, student.getName());
 			ps.setInt(2, student.getYearJoined());
@@ -50,7 +50,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM student");
 			ResultSet resultSet = ps.executeQuery();
 			
@@ -77,7 +77,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement psStudentFields = connection.prepareStatement("SELECT * FROM student WHERE id=?");
 			psStudentFields.setInt(1, Id);
 			ResultSet StudentFields = psStudentFields.executeQuery();
@@ -100,7 +100,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement DeleteStudent = connection.prepareStatement("DELETE FROM student WHERE id=?");
 			DeleteStudent.setInt(1, student.getId());
 			DeleteStudent.executeUpdate();
@@ -116,7 +116,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement UpdateStudent = connection.prepareStatement("UPDATE student set name=?, set yearJoined=?, set major=? WHERE id=?");
 			UpdateStudent.setString(1, student.getName());
 			UpdateStudent.setInt(2, student.getYearJoined());
@@ -135,7 +135,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO Professor_has_Student(Professor_id, Student_id) VALUES(?, ?)");
 			ps.setInt(1, professor.getId());
 			ps.setInt(2, student.getId());
@@ -154,7 +154,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT Professor_id FROM Professor_has_Student where Student_id=?");
 			ps.setInt(1, student.getId());
 			ResultSet ids = ps.executeQuery();
@@ -175,7 +175,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT ResearchLab_id FROM student_has_researchLab where Student_id=?");
 			ps.setInt(1, student.getId());
 			ResultSet ids = ps.executeQuery();
@@ -195,7 +195,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO student_has_researchLab(ResearchLab_id, Student_id) VALUES(?, ?)");
 			ps.setInt(1, researchLab.getId());
 			ps.setInt(2, student.getId());
@@ -214,7 +214,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT SportsTeam_id FROM sportsteam_has_student where Student_id=?");
 			ps.setInt(1, student.getId());
 			ResultSet ids = ps.executeQuery();
@@ -234,7 +234,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO sportsteam_has_student(SportsTeam_id, Student_id) VALUES(?, ?)");
 			ps.setInt(1, sportsTeam.getId());
 			ps.setInt(2, student.getId());
@@ -252,7 +252,7 @@ public class StudentDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO class_has_student(Class_id, Student_id) VALUES(?, ?)");
 			ps.setInt(1, C.getId());
 			ps.setInt(2, student.getId());

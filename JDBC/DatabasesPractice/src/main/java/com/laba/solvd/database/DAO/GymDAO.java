@@ -24,7 +24,7 @@ public class GymDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO gym(Location, gymAge, price) VALUES(?, ?, ?)");
 			ps.setString(1, gym.getLocation());
 			ps.setInt(2, gym.getGymAge());
@@ -44,7 +44,7 @@ public class GymDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("UPDATE student SET Gym_id=? WHERE id=?");
 			ps.setInt(1, gym.getId());
 			ps.setInt(2, student.getId());
@@ -62,7 +62,12 @@ public class GymDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try {
+		    Class.forName(props.getProperty("db.driver"));
+		} catch (ClassNotFoundException e) {
+		    e.printStackTrace();
+		}
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM gym");
 			ResultSet resultSet = ps.executeQuery();
 			
@@ -88,7 +93,7 @@ public class GymDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement psGymFields = connection.prepareStatement("SELECT * FROM gym WHERE id=?");
 			psGymFields.setInt(1, Id);
 			ResultSet GymFields = psGymFields.executeQuery();
@@ -111,7 +116,7 @@ public class GymDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement DeleteGym = connection.prepareStatement("DELETE FROM gym WHERE id=?");
 			DeleteGym.setInt(1, gym.getId());
 			DeleteGym.executeUpdate();
@@ -127,7 +132,7 @@ public class GymDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props)) {
+		try (Connection connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"))) {
 			PreparedStatement UpdateGym = connection.prepareStatement("UPDATE gym set Location=?, set gymAge=?, set price=? WHERE id=?");
 			UpdateGym.setString(1, gym.getLocation());
 			UpdateGym.setInt(2, gym.getGymAge());
