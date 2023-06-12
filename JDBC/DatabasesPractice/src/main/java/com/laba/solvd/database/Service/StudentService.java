@@ -1,14 +1,14 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.Gym;
+import com.laba.solvd.database.DAO.Professor;
+import com.laba.solvd.database.DAO.ResearchLab;
+import com.laba.solvd.database.DAO.SportsTeam;
+import com.laba.solvd.database.DAO.Student;
 import com.laba.solvd.database.DAO.StudentDAO;
-import com.laba.solvd.database.DAO.Model.Gym;
-import com.laba.solvd.database.DAO.Model.Professor;
-import com.laba.solvd.database.DAO.Model.ResearchLab;
-import com.laba.solvd.database.DAO.Model.SportsTeam;
-import com.laba.solvd.database.DAO.Model.Student;
-import com.laba.solvd.database.DAO.Model.UniClass;
+import com.laba.solvd.database.DAO.UniClass;
 
 public class StudentService {
 	

@@ -1,10 +1,10 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.Professor;
 import com.laba.solvd.database.DAO.ProfessorDAO;
-import com.laba.solvd.database.DAO.Model.Professor;
-import com.laba.solvd.database.DAO.Model.UniClass;
+import com.laba.solvd.database.DAO.UniClass;
 
 public class ProfessorService {
 

@@ -1,9 +1,9 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.UniClass;
 import com.laba.solvd.database.DAO.UniClassDAO;
-import com.laba.solvd.database.DAO.Model.UniClass;
 
 public class UniClassService {
 

@@ -1,9 +1,9 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.Gym;
 import com.laba.solvd.database.DAO.GymDAO;
-import com.laba.solvd.database.DAO.Model.Gym;
 
 public class GymService {
 	

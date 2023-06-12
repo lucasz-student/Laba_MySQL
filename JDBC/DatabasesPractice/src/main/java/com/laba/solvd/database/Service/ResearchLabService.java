@@ -1,9 +1,9 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.ResearchLab;
 import com.laba.solvd.database.DAO.ResearchLabDAO;
-import com.laba.solvd.database.DAO.Model.ResearchLab;
 
 public class ResearchLabService {
 	

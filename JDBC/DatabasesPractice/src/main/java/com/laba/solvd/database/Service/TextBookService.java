@@ -1,11 +1,11 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.Student;
+import com.laba.solvd.database.DAO.TextBook;
 import com.laba.solvd.database.DAO.TextBookDAO;
-import com.laba.solvd.database.DAO.Model.Student;
-import com.laba.solvd.database.DAO.Model.TextBook;
-import com.laba.solvd.database.DAO.Model.UniClass;
+import com.laba.solvd.database.DAO.UniClass;
 
 public class TextBookService {
 

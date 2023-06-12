@@ -1,9 +1,9 @@
-package com.laba.solvd.database;
+package com.laba.solvd.database.Service;
 
 import java.util.List;
 
+import com.laba.solvd.database.DAO.SportsTeam;
 import com.laba.solvd.database.DAO.SportsTeamDAO;
-import com.laba.solvd.database.DAO.Model.SportsTeam;
 
 public class SportsTeamService {
 

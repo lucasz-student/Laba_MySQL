@@ -1,4 +1,4 @@
-package com.laba.solvd.database.DAO.Model;
+package com.laba.solvd.database.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
