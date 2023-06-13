@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Gyms>
+	<Gym id="1">
+		<Location>"Building A"</Location>
+		<Price>16</Price>
+		<GymAge>23</GymAge>
+	</Gym>
+	<Gym id="2">
+		<Location>"Building B"</Location>
+		<Price>39</Price>
+		<GymAge>5</GymAge>
+	</Gym>
+	<Gym id="3">
+		<Location>"Building C"</Location>
+		<Price>150</Price>
+		<GymAge>1</GymAge>
+	</Gym>
+</Gyms>
