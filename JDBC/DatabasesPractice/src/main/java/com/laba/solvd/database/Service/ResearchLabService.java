@@ -2,8 +2,10 @@ package com.laba.solvd.database.Service;
 
 import java.util.List;
 
-import com.laba.solvd.database.DAO.ResearchLab;
 import com.laba.solvd.database.DAO.ResearchLabDAO;
+import com.laba.solvd.database.Model.Professor;
+import com.laba.solvd.database.Model.ResearchLab;
+import com.laba.solvd.database.Model.Student;
 
 public class ResearchLabService {
 	
@@ -12,24 +14,30 @@ public class ResearchLabService {
 	public ResearchLabService(ResearchLabDAO ResearchLabDAO) {	
 		this.ResearchLabDAO=ResearchLabDAO;
 	}
+
+	public void enrollNewResearchLab(ResearchLab ResearchLab, Professor professor, Student student) {
+		this.ResearchLabDAO.create(ResearchLab);
+		this.ResearchLabDAO.addProfessorToResearchLab(ResearchLab, professor);
+		this.ResearchLabDAO.addStudentToResearchLab(ResearchLab, student);
+	}
 	
 	public void createResearchLab(ResearchLab ResearchLab) {
-		this.ResearchLabDAO.createResearchLab(ResearchLab);
+		this.ResearchLabDAO.create(ResearchLab);
 	}
 	
 	public ResearchLab getResearchLabByID(int Id) {
-		return this.ResearchLabDAO.getResearchLabById(Id);
+		return this.ResearchLabDAO.selectById(Id);
 	}
 	
 	public List<ResearchLab> getAllClasses() {
-		return this.ResearchLabDAO.getAllResearchLabs();
+		return this.ResearchLabDAO.selectAll();
 	}
 	
 	public void updateResearchLab(ResearchLab ResearchLab) {
-		this.ResearchLabDAO.updateResearchLab(ResearchLab);
+		this.ResearchLabDAO.update(ResearchLab);
 	}
 	
 	public void deleteResearchLab(ResearchLab ResearchLab) {
-		this.ResearchLabDAO.deleteResearchLab(ResearchLab);
+		this.ResearchLabDAO.delete(ResearchLab);
 	}
 }

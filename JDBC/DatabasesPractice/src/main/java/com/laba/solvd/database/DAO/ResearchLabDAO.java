@@ -8,29 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ResearchLabDAO {
+import com.laba.solvd.database.Model.Professor;
+import com.laba.solvd.database.Model.ResearchLab;
+import com.laba.solvd.database.Model.Student;
+
+public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationship<ResearchLab>{
 	
-	public void createResearchLab(ResearchLab researchLab) {
+	@Override
+	public void create(ResearchLab researchLab) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO researchlab(papersPublished, age, name, topic) VALUES(?, ?, ?, ?)");
 			ps.setInt(1, researchLab.getPapersPublished());
 			ps.setInt(2, researchLab.getAge());
 			ps.setString(3, researchLab.getName());
 			ps.setString(4, researchLab.getTopic());
-			
 			ps.executeUpdate();
-			System.out.println("researchLab Created in Database");
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<ResearchLab> getAllResearchLabs() {
+	@Override
+	public List<ResearchLab> selectAll() {
 		List<ResearchLab> researchLabs = new ArrayList<>();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM researchlab");
+			PreparedStatement ps = connection.prepareStatement(String.format(GET_ALL, "researchlab"));
 			ResultSet resultSet = ps.executeQuery();
-			
 			while (resultSet.next()) {
 				ResearchLab researchLab = new ResearchLab();
 				researchLab.setPapersPublished(resultSet.getInt("papersPublished"));
@@ -45,25 +48,25 @@ public class ResearchLabDAO {
 		return researchLabs;
 	}
 	
-	public ResearchLab getResearchLabById(int Id) {
+	@Override
+	public ResearchLab selectById(int Id) {
 		ResearchLab researchLab = new ResearchLab();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement psResearchLabFields = connection.prepareStatement("SELECT * FROM researchlab WHERE id=?");
+			PreparedStatement psResearchLabFields = connection.prepareStatement(String.format(GET_BY_ID, "researchlab"));
 			psResearchLabFields.setInt(1, Id);
 			ResultSet ResearchLabFields = psResearchLabFields.executeQuery();
-			
 			researchLab.setPapersPublished(ResearchLabFields.getInt("papersPublished"));
 			researchLab.setAge(ResearchLabFields.getInt("age"));
 			researchLab.setName(ResearchLabFields.getString("name"));
 			researchLab.setTopic(ResearchLabFields.getString("topic"));
-		
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 		return researchLab;
 	}
 	
-	public void deleteResearchLab(ResearchLab researchLab) {
+	@Override
+	public void delete(ResearchLab researchLab) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement DeleteResearchLab = connection.prepareStatement("DELETE FROM researchlab WHERE id=?");
 			DeleteResearchLab.setInt(1, researchLab.getId());
@@ -73,7 +76,8 @@ public class ResearchLabDAO {
 		}
 	}
 	
-	public void updateResearchLab(ResearchLab researchLab) {
+	@Override
+	public void update(ResearchLab researchLab) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement UpdateResearchLab = connection.prepareStatement("UPDATE student set papersPublished=?, set age=?, set name=?, set topic=? WHERE id=?");
 			UpdateResearchLab.setInt(1, researchLab.getPapersPublished());
@@ -94,7 +98,7 @@ public class ResearchLabDAO {
 			ps.setInt(1, researchLab.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				professors.add(new ProfessorDAO().getProfessorById(ids.getInt("Professor_id")));
+				professors.add(new ProfessorDAO().selectById(ids.getInt("Professor_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
@@ -121,7 +125,7 @@ public class ResearchLabDAO {
 			ps.setInt(1, researchLab.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				students.add(new StudentDAO().getStudentById(ids.getInt("Student_id")));
+				students.add(new StudentDAO().selectById(ids.getInt("Student_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();

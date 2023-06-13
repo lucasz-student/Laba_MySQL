@@ -8,33 +8,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class SportsTeamDAO {
+import com.laba.solvd.database.Model.SportsTeam;
+import com.laba.solvd.database.Model.Student;
 
-	public void createSportsTeam(SportsTeam sportsTeam) {
+public class SportsTeamDAO implements IDAO<SportsTeam>, ICreatableNoRelationship<SportsTeam>{
+
+	@Override
+	public void create(SportsTeam sportsTeam) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO sportsteam(sportName, gamesPlayed) VALUES(?, ?)");
 			ps.setString(1, sportsTeam.getSportName());
 			ps.setInt(2, sportsTeam.getGamesPlayed());
-			
 			ps.executeUpdate();
-			
-			System.out.println("Sports Team Created in Database");
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<SportsTeam> getAllSportsTeams() {
+	@Override
+	public List<SportsTeam> selectAll() {
 		List<SportsTeam> sportsTeams = new ArrayList<>();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM sportsteam");
+			PreparedStatement ps = connection.prepareStatement(String.format(GET_ALL, "sportsteam"));
 			ResultSet resultSet = ps.executeQuery();
-			
 			while (resultSet.next()) {
 				SportsTeam sportsTeam = new SportsTeam();
 				sportsTeam.setSportName(resultSet.getString("sportName"));
 				sportsTeam.setGamesPlayed(resultSet.getInt("gamesPlayed"));
-				
 				sportsTeams.add(sportsTeam);
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
@@ -43,23 +43,23 @@ public class SportsTeamDAO {
 		return sportsTeams;
 	}
 	
-	public SportsTeam getSportsTeamById(int Id) {
+	@Override
+	public SportsTeam selectById(int Id) {
 		SportsTeam sportsTeam = new SportsTeam();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement psSportsTeamFields = connection.prepareStatement("SELECT * FROM sportsteam WHERE id=?");
+			PreparedStatement psSportsTeamFields = connection.prepareStatement(String.format(GET_BY_ID, "sportsteam"));
 			psSportsTeamFields.setInt(1, Id);
 			ResultSet SportsTeamFields = psSportsTeamFields.executeQuery();
-			
 			sportsTeam.setSportName(SportsTeamFields.getString("sportName"));
 			sportsTeam.setGamesPlayed(SportsTeamFields.getInt("gamesPlayed"));
-			
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 		return sportsTeam;
 	}
 	
-	public void deleteSportsTeam(SportsTeam sportsTeam) {
+	@Override
+	public void delete(SportsTeam sportsTeam) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement DeleteSportsTeam = connection.prepareStatement("DELETE FROM sportsteam WHERE id=?");
 			DeleteSportsTeam.setInt(1, sportsTeam.getId());
@@ -69,7 +69,8 @@ public class SportsTeamDAO {
 		}
 	}
 	
-	public void updateSportsTeam(SportsTeam sportsTeam) {
+	@Override
+	public void update(SportsTeam sportsTeam) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement UpdateSportsTeam = connection.prepareStatement("UPDATE sportsteam set sportName=?, gamesPlayed=? WHERE id=?");
 			UpdateSportsTeam.setString(1, sportsTeam.getSportName());
@@ -88,7 +89,7 @@ public class SportsTeamDAO {
 			ps.setInt(1, sportsTeam.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				students.add(new StudentDAO().getStudentById(ids.getInt("Student_id")));
+				students.add(new StudentDAO().selectById(ids.getInt("Student_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();

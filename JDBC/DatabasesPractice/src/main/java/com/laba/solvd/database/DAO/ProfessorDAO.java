@@ -8,34 +8,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ProfessorDAO {
+import com.laba.solvd.database.Model.Professor;
+import com.laba.solvd.database.Model.ResearchLab;
+import com.laba.solvd.database.Model.Student;
+import com.laba.solvd.database.Model.UniClass;
+
+public class ProfessorDAO implements IDAO<Professor>, ICreatableWithRelationship<Professor, UniClass> {
 	
-	public void createProfessor(Professor professor, UniClass uniClass) {
+	@Override
+	public void create(Professor professor, UniClass uniClass) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO professor(name, age, Class_id) VALUES(?, ?, ?)");
 			ps.setString(1, professor.getName());
 			ps.setInt(2, professor.getAge());
 			ps.setInt(3, professor.getUniClass().getId());
-			
 			ps.executeUpdate();
-			System.out.println("Professor Created in Database");
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<Professor> getAllProfessors() {
+	@Override
+	public List<Professor> selectAll() {
 		List<Professor> professors = new ArrayList<>();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM professor");
+			PreparedStatement ps = connection.prepareStatement(String.format(GET_ALL, "professor"));
 			ResultSet resultSet = ps.executeQuery();
-			
 			while (resultSet.next()) {
 				Professor professor = new Professor();
 				professor.setId(resultSet.getInt("id"));
 				professor.setName(resultSet.getString("name"));
 				professor.setAge(resultSet.getInt("age"));
-				professor.setUniClass(new UniClassDAO().getUniClassById(resultSet.getInt("class_id")));
+				professor.setUniClass(new UniClassDAO().selectById(resultSet.getInt("class_id")));
 				professors.add(professor);
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
@@ -44,25 +48,25 @@ public class ProfessorDAO {
 		return professors;
 	}
 	
-	public Professor getProfessorById(int Id) {
+	@Override
+	public Professor selectById(int Id) {
 		Professor professor = new Professor();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement psProfessorFields = connection.prepareStatement("SELECT * FROM professor WHERE id=?");
+			PreparedStatement psProfessorFields = connection.prepareStatement(String.format(GET_BY_ID, "professor"));
 			psProfessorFields.setInt(1, Id);
 			ResultSet StudentFields = psProfessorFields.executeQuery();
-			
 			professor.setId(StudentFields.getInt("id"));
 			professor.setName(StudentFields.getString("name"));
 			professor.setAge(StudentFields.getInt("age"));
-			professor.setUniClass(new UniClassDAO().getUniClassById(StudentFields.getInt("class_id")));
-			
+			professor.setUniClass(new UniClassDAO().selectById(StudentFields.getInt("class_id")));
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 		return professor;
 	}
 	
-	public void deleteProfessor(Professor professor) {
+	@Override
+	public void delete(Professor professor) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement DeleteProfessor = connection.prepareStatement("DELETE FROM professor WHERE id=?");
 			DeleteProfessor.setInt(1, professor.getId());
@@ -72,7 +76,20 @@ public class ProfessorDAO {
 		}
 	}
 	
-	public void updateProfessor(Professor professor, UniClass C) {
+	@Override
+	public void update(Professor professor) {
+		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
+			PreparedStatement UpdateProfessor = connection.prepareStatement("UPDATE student set name=?, set age=? WHERE id=?");
+			UpdateProfessor.setString(1, professor.getName());
+			UpdateProfessor.setInt(2, professor.getAge());
+			UpdateProfessor.setInt(3, professor.getId());
+			UpdateProfessor.executeUpdate();
+		} catch (SQLException | InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateWithRelationship(Professor professor, UniClass C) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement UpdateProfessor = connection.prepareStatement("UPDATE student set name=?, set age=?, set Class_id=? WHERE id=?");
 			UpdateProfessor.setString(1, professor.getName());
@@ -92,7 +109,7 @@ public class ProfessorDAO {
 			ps.setInt(1, professor.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				students.add(new StudentDAO().getStudentById(ids.getInt("Student_id")));
+				students.add(new StudentDAO().selectById(ids.getInt("Student_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
@@ -106,7 +123,6 @@ public class ProfessorDAO {
 			ps.setInt(1, professor.getId());
 			ps.setInt(2, student.getId());
 			ps.executeUpdate();
-			
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -119,8 +135,8 @@ public class ProfessorDAO {
 			ps.setInt(1, professor.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				researchLabs.add(new ResearchLabDAO().getResearchLabById(ids.getInt("ResearchLab_id")));
-			}
+				researchLabs.add(new ResearchLabDAO().selectById(ids.getInt("ResearchLab_id")));
+				}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -133,7 +149,6 @@ public class ProfessorDAO {
 			ps.setInt(1, professor.getId());
 			ps.setInt(2, researchLab.getId());
 			ps.executeUpdate();
-			
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -145,7 +160,6 @@ public class ProfessorDAO {
 			ps.setInt(1, C.getId());
 			ps.setInt(2, professor.getId());
 			ps.executeUpdate();
-			
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}

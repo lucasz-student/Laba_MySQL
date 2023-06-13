@@ -1,4 +1,4 @@
-package com.laba.solvd.database.DAO;
+package com.laba.solvd.database.Model;
 
 public class TextBook {
 

@@ -42,7 +42,6 @@ public class ConnectionManager {
 		private ArrayBlockingQueue<Connection> Pool;
 		private int size;
 		
-		
 		public ConnectionPool(int size) {
 			this.Pool = new ArrayBlockingQueue<Connection>(size);
 			this.size = size;

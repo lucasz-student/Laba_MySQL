@@ -8,36 +8,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class StudentDAO {
+import com.laba.solvd.database.Model.Gym;
+import com.laba.solvd.database.Model.Professor;
+import com.laba.solvd.database.Model.ResearchLab;
+import com.laba.solvd.database.Model.SportsTeam;
+import com.laba.solvd.database.Model.Student;
+import com.laba.solvd.database.Model.UniClass;
 
-	public void createStudent(Student student, Gym gym) {
+public class StudentDAO implements IDAO<Student>, ICreatableWithRelationship<Student, Gym>{
+
+	@Override
+	public void create(Student student, Gym gym) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement ps = connection.prepareStatement("INSERT INTO Student(name, yearJoined, major, Gym_id) VALUES(?, ?, ?, ?)");
 			ps.setString(1, student.getName());
 			ps.setInt(2, student.getYearJoined());
 			ps.setString(3, student.getMajor());
 			ps.setInt(4, gym.getId());
-			
 			ps.executeUpdate();
-			System.out.println("Student Created in Database");
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<Student> getAllStudents() {
+	@Override
+	public List<Student> selectAll() {
 		List<Student> students = new ArrayList<>();	
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM student");
+			PreparedStatement ps = connection.prepareStatement(String.format(GET_ALL, "student"));
 			ResultSet resultSet = ps.executeQuery();
-			
 			while (resultSet.next()) {
 				Student student = new Student();
 				student.setId(resultSet.getInt("id"));
 				student.setMajor(resultSet.getString("major"));
 				student.setName(resultSet.getString("name"));
 				student.setYearJoined(resultSet.getInt("yearJoined")); 
-				student.setGym(new GymDAO().getGymById(resultSet.getInt("Gym_id")));
+				student.setGym(new GymDAO().selectById(resultSet.getInt("Gym_id")));
 				students.add(student);
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
@@ -46,13 +52,13 @@ public class StudentDAO {
 		return students;
 	}
 	
-	public Student getStudentById(int Id) {
+	@Override
+	public Student selectById(int Id) {
 		Student student = new Student();
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement psStudentFields = connection.prepareStatement("SELECT * FROM student WHERE id=?");
+			PreparedStatement psStudentFields = connection.prepareStatement(String.format(GET_BY_ID, "student"));
 			psStudentFields.setInt(1, Id);
 			ResultSet StudentFields = psStudentFields.executeQuery();
-			
 			student.setId(StudentFields.getInt("id"));
 			student.setName(StudentFields.getString("name"));
 			student.setMajor(StudentFields.getString("major"));
@@ -64,7 +70,8 @@ public class StudentDAO {
 		return student;
 	}
 	
-	public void deleteStudent(Student student) {
+	@Override
+	public void delete(Student student) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement DeleteStudent = connection.prepareStatement("DELETE FROM student WHERE id=?");
 			DeleteStudent.setInt(1, student.getId());
@@ -74,7 +81,8 @@ public class StudentDAO {
 		}
 	}
 	
-	public void updateStudent(Student student) {
+	@Override
+	public void update(Student student) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
 			PreparedStatement UpdateStudent = connection.prepareStatement("UPDATE student set name=?, set yearJoined=?, set major=? WHERE id=?");
 			UpdateStudent.setString(1, student.getName());
@@ -106,7 +114,7 @@ public class StudentDAO {
 			ps.setInt(1, student.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				professors.add(new ProfessorDAO().getProfessorById(ids.getInt("Professor_id")));
+				professors.add(new ProfessorDAO().selectById(ids.getInt("Professor_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
@@ -121,7 +129,7 @@ public class StudentDAO {
 			ps.setInt(1, student.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				researchLabs.add(new ResearchLabDAO().getResearchLabById(ids.getInt("ResearchLab_id")));
+				researchLabs.add(new ResearchLabDAO().selectById(ids.getInt("ResearchLab_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
@@ -148,7 +156,7 @@ public class StudentDAO {
 			ps.setInt(1, student.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
-				sportsTeams.add(new SportsTeamDAO().getSportsTeamById(ids.getInt("SportsTeam_id")));
+				sportsTeams.add(new SportsTeamDAO().selectById(ids.getInt("SportsTeam_id")));
 			}
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
@@ -162,7 +170,6 @@ public class StudentDAO {
 			ps.setInt(1, sportsTeam.getId());
 			ps.setInt(2, student.getId());
 			ps.executeUpdate();
-			
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -174,7 +181,6 @@ public class StudentDAO {
 			ps.setInt(1, C.getId());
 			ps.setInt(2, student.getId());
 			ps.executeUpdate();
-			
 		} catch (SQLException | InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
