@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="University">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Gyms">
+                	<xs:complexType>
+                		<xs:sequence>
+                			<xs:element name="Gym" type="GymType" maxOccurs="unbounded"/>
+                		</xs:sequence>
+                	</xs:complexType>
+                </xs:element>
+                
+                <xs:element name="Professors">
+                	<xs:complexType>
+                		<xs:sequence>
+                			<xs:element name="Professor" type="ProfessorType" maxOccurs="unbounded"/>
+                		</xs:sequence>
+                	</xs:complexType>
+                </xs:element>
+                <xs:element name="Sportsteams">
+                	<xs:complexType>
+                		<xs:sequence>
+                			<xs:element name="Sportsteam" type="SportsteamType"></xs:element>
+                		</xs:sequence>
+                	</xs:complexType>
+                </xs:element>
+                
+                <xs:element name="Textbooks">
+                	<xs:complexType>
+                		<xs:sequence>
+                			<xs:element name="Textbook" type="TextbookType">
+                			</xs:element>
+                		</xs:sequence>
+                	</xs:complexType>
+                </xs:element>
+                
+                <xs:element name="Uniclasses">
+                	<xs:complexType>
+	                	<xs:sequence>
+	                		<xs:element name="Uniclass" type="UniclassType"></xs:element>
+	                	</xs:sequence>
+                	</xs:complexType>
+                </xs:element>
+                
+                <xs:element name="Researchlabs">
+                	<xs:complexType>
+                		<xs:sequence>
+                			<xs:element name="Researchlab" type="ResearchLabType"></xs:element>
+                		</xs:sequence>
+                	</xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="GymType">
+        <xs:sequence>
+            <xs:element name="location" type="xs:string"/>
+            <xs:element name="price" type="xs:positiveInteger"/>
+            <xs:element name="gymAge" type="xs:positiveInteger"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="ProfessorType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="age" type="xs:integer"/>
+            <xs:element name="UniClass" type="UniclassType" minOccurs="0"/>
+            <xs:element name="Students" minOccurs="0"/>
+            <xs:element name="ResearchLabs" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+	
+	   <xs:complexType name="SportsteamType">
+        <xs:sequence>
+            <xs:element name="gamesPlayed" type="xs:integer"/>
+            <xs:element name="sportName" type="xs:string"/>
+            <xs:element name="Students" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TextbookType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="bookCondition" type="xs:string"/>
+            <xs:element name="Student" type="StudentType"/>
+            <xs:element name="UniClass" type="UniclassType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="UniclassType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="subject" type="xs:string"/>
+            <xs:element name="Textbooks" minOccurs="0"/>
+            <xs:element name="Students" minOccurs="0"/>
+            <xs:element name="Professor" type="ProfessorType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="ResearchLabType">
+        <xs:sequence>
+            <xs:element name="papersPublished" type="xs:integer"/>
+            <xs:element name="age" type="xs:integer"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="topic" type="xs:string"/>
+            <xs:element name="Students" minOccurs="0"/>
+            <xs:element name="Professors" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+	
+	<xs:complexType name="StudentType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="yearJoined" type="xs:integer"/>
+            <xs:element name="major" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+    </xs:complexType>
+</xs:schema>
