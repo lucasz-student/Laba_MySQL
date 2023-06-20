@@ -7,13 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
 import com.laba.solvd.database.Model.Professor;
 import com.laba.solvd.database.Model.ResearchLab;
 import com.laba.solvd.database.Model.Student;
 
-public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationship<ResearchLab>{
+public class ResearchLabDAO extends AbstractDAO<ResearchLab> implements ICreatableNoRelationship<ResearchLab>{
 	
+	public ResearchLabDAO() throws InterruptedException, ExecutionException {
+		super();
+	}
+
 	@Override
 	public void create(ResearchLab researchLab) {
 		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
@@ -31,8 +34,7 @@ public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationsh
 	@Override
 	public List<ResearchLab> selectAll() {
 		List<ResearchLab> researchLabs = new ArrayList<>();
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement(String.format(GET_ALL, "researchlab"));
+		try (PreparedStatement ps = connection.prepareStatement(String.format(GET_ALL, "researchlab"));) {
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				ResearchLab researchLab = new ResearchLab();
@@ -42,7 +44,7 @@ public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationsh
 				researchLab.setTopic(resultSet.getString("topic"));
 				researchLabs.add(researchLab);
 			}
-		} catch (SQLException | InterruptedException | ExecutionException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return researchLabs;
@@ -51,15 +53,14 @@ public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationsh
 	@Override
 	public ResearchLab selectById(int Id) {
 		ResearchLab researchLab = new ResearchLab();
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement psResearchLabFields = connection.prepareStatement(String.format(GET_BY_ID, "researchlab"));
+		try (PreparedStatement psResearchLabFields = connection.prepareStatement(String.format(GET_BY_ID, "researchlab"));) {
 			psResearchLabFields.setInt(1, Id);
 			ResultSet ResearchLabFields = psResearchLabFields.executeQuery();
 			researchLab.setPapersPublished(ResearchLabFields.getInt("papersPublished"));
 			researchLab.setAge(ResearchLabFields.getInt("age"));
 			researchLab.setName(ResearchLabFields.getString("name"));
 			researchLab.setTopic(ResearchLabFields.getString("topic"));
-		} catch (SQLException | InterruptedException | ExecutionException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return researchLab;
@@ -67,34 +68,31 @@ public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationsh
 	
 	@Override
 	public void delete(ResearchLab researchLab) {
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement DeleteResearchLab = connection.prepareStatement("DELETE FROM researchlab WHERE id=?");
+		try (PreparedStatement DeleteResearchLab = connection.prepareStatement("DELETE FROM researchlab WHERE id=?");) {
 			DeleteResearchLab.setInt(1, researchLab.getId());
 			DeleteResearchLab.executeUpdate();
-		} catch (SQLException | InterruptedException | ExecutionException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
 	public void update(ResearchLab researchLab) {
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement UpdateResearchLab = connection.prepareStatement("UPDATE student set papersPublished=?, set age=?, set name=?, set topic=? WHERE id=?");
+		try (PreparedStatement UpdateResearchLab = connection.prepareStatement("UPDATE student set papersPublished=?, age=?, name=?, topic=? WHERE id=?");) {
 			UpdateResearchLab.setInt(1, researchLab.getPapersPublished());
 			UpdateResearchLab.setInt(2, researchLab.getAge());
 			UpdateResearchLab.setString(3, researchLab.getName());
 			UpdateResearchLab.setString(4, researchLab.getTopic());
 			UpdateResearchLab.setInt(5, researchLab.getId());
 			UpdateResearchLab.executeUpdate();
-		} catch (SQLException | InterruptedException | ExecutionException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public List<Professor> getResearchLabProfessors(ResearchLab researchLab) {
 		List<Professor> professors = new ArrayList<>();
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("SELECT Professor_id FROM researchlab_has_professor where ResearchLab_id=?");
+		try (PreparedStatement ps = connection.prepareStatement("SELECT Professor_id FROM researchlab_has_professor where ResearchLab_id=?");) {
 			ps.setInt(1, researchLab.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
@@ -107,21 +105,18 @@ public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationsh
 	}
 	
 	public void addProfessorToResearchLab(ResearchLab researchLab, Professor professor) {
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO researchlab_has_professor(Professor_id, ResearchLab_id) VALUES(?, ?)");
+		try (PreparedStatement ps = connection.prepareStatement("INSERT INTO researchlab_has_professor(Professor_id, ResearchLab_id) VALUES(?, ?)");) {
 			ps.setInt(1, professor.getId());
 			ps.setInt(2, researchLab.getId());
 			ps.executeUpdate();
-			
-		} catch (SQLException | InterruptedException | ExecutionException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public List<Student> getResearchLabStudents(ResearchLab researchLab) {
 		List<Student> students = new ArrayList<>();
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("SELECT Student_id FROM student_has_researchLab where ResearchLab_id=?");
+		try (PreparedStatement ps = connection.prepareStatement("SELECT Student_id FROM student_has_researchLab where ResearchLab_id=?");) {
 			ps.setInt(1, researchLab.getId());
 			ResultSet ids = ps.executeQuery();
 			while (ids.next()) {
@@ -134,13 +129,11 @@ public class ResearchLabDAO implements IDAO<ResearchLab>, ICreatableNoRelationsh
 	}
 	
 	public void addStudentToResearchLab(ResearchLab researchLab, Student student) {
-		try (Connection connection = (Connection) ConnectionManager.getSQLConnection().get();) {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO student_has_researchLab(ResearchLab_id, Student_id) VALUES(?, ?)");
+		try (PreparedStatement ps = connection.prepareStatement("INSERT INTO student_has_researchLab(ResearchLab_id, Student_id) VALUES(?, ?)");) {
 			ps.setInt(1, researchLab.getId());
 			ps.setInt(2, student.getId());
 			ps.executeUpdate();
-			
-		} catch (SQLException | InterruptedException | ExecutionException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

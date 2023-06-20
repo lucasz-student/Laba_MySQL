@@ -39,40 +39,40 @@ public class ConnectionManager {
 	
 	static class ConnectionPool {
 
-		private ArrayBlockingQueue<Connection> Pool;
+		private ArrayBlockingQueue<MyConnection> Pool;
 		private int size;
 		
 		public ConnectionPool(int size) {
-			this.Pool = new ArrayBlockingQueue<Connection>(size);
+			this.Pool = new ArrayBlockingQueue<MyConnection>(size);
 			this.size = size;
 		}	
 		
-		private Connection fetchOrStartConnection() {
+		private MyConnection fetchOrStartConnection() {
 			boolean found = false;
 			if (this.Pool.size() == this.size) {
 				while (!found) {
-					for (Connection c: this.Pool) {
+					for (MyConnection c: this.Pool) {
 						if (c.status == ConnectionStatus.IDLE) {
 							return c;
 						}
 					}
 				}
 			} 
-			Connection connection = new Connection();
+			MyConnection connection = new MyConnection();
 			this.Pool.add(connection);
 			return connection;
 
 		}
 		
 		public Future getSQLConnection(Callable con) {
-			Connection connection = this.fetchOrStartConnection(); 
+			MyConnection connection = this.fetchOrStartConnection(); 
 			connection.status = ConnectionStatus.ACTIVE;
-			Future f = connection.StartReturnableThread(con);
+			Future f = connection.SubmitReturnableThread(con);
 			this.returnConnection(connection, f);
 			return f;
 		}
 
-		private void returnConnection(Connection c, Future f) {
+		private void returnConnection(MyConnection c, Future f) {
 			Thread t = new Thread(() -> {
 				while (!f.isDone()) {
 				}
@@ -81,15 +81,15 @@ public class ConnectionManager {
 			t.start();
 		}
 		
-		private static class Connection {
+		private static class MyConnection {
 			ExecutorService s = Executors.newSingleThreadExecutor();
 			ConnectionStatus status;
 			
-			Connection() {
+			MyConnection() {
 				this.status = ConnectionStatus.IDLE;
 			}
 			
-			Future StartReturnableThread(Callable callable) {
+			Future SubmitReturnableThread(Callable callable) {
 				Future f = s.submit(callable);
 				return f;
 			}
