@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Gym id="1">
+    <Location>Building A</Location>
+	<price>16</price>
+	<gymAge>23</gymAge>
+	<dateRegistered>2023-09-05T02:11:12</dateRegistered>
+	<Students>
+		<Student id="1">
+			<name>John</name>
+			<yearJoined>2021</yearJoined>
+			<major>Mathematics</major>
+		</Student>
+	</Students>
+</Gym>
