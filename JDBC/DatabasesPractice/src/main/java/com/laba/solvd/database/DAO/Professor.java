@@ -14,7 +14,6 @@ public class Professor {
 	private List<ResearchLab> ResearchLabs = new ArrayList<>();
 	
 	public Professor() {
-		
 	}
 	
 	public Professor(int id, String name, int age, UniClass C) {
@@ -70,5 +69,10 @@ public class Professor {
 	
 	public void removeResearchLab(ResearchLab lab) {
 		this.ResearchLabs.remove(lab);
+	}
+	
+	@Override
+	public String toString() {
+	    return id + " " + name + " " + age;
 	}
 }

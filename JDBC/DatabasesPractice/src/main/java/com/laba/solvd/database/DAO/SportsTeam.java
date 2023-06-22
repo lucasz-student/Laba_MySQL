@@ -51,4 +51,9 @@ public class SportsTeam {
 	public void removeStudent(Student student) {
 		this.Students.remove(student);
 	}
+	
+	@Override
+	public String toString() {
+	    return id + " " + gamesPlayed + " " + sportName;
+	}
 }
