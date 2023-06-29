@@ -107,4 +107,9 @@ public class Student {
 	public void removeUniClass(UniClass UniClass) {
 		this.UniClasses.remove(UniClass);
 	}
+	
+	@Override
+	public String toString() {
+	    return "" + this.id + " " + this.name + " " + this.major + " " + this.yearJoined;
+	}
 }

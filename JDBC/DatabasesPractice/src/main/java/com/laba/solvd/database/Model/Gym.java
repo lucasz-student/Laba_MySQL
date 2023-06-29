@@ -61,4 +61,9 @@ public class Gym {
 	public void removeStudent(Student student) {
 		this.Students.remove(student);
 	}
+	
+	@Override
+	public String toString() {
+	    return "" + this.id + " " + this.Location + " " + this.gymAge + " " + this.price;
+	}
 }

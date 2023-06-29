@@ -1,41 +1,46 @@
 package com.laba.solvd.database.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.laba.solvd.database.DAO.SportsTeamDAO;
+import com.laba.solvd.database.Mapper.SportsTeamMapper;
 import com.laba.solvd.database.Model.SportsTeam;
 import com.laba.solvd.database.Model.Student;
 
-public class SportsTeamService {
+public class SportsTeamService extends AbstractService{
 
 	private SportsTeamDAO SportsTeamDAO;
+	private SportsTeamMapper sportsTeamMapper;
 	
-	public SportsTeamService(SportsTeamDAO SportsTeam) {	
+	public SportsTeamService(SportsTeamDAO SportsTeam) throws IOException {
+		super();
 		this.SportsTeamDAO=SportsTeam;
+		this.sportsTeamMapper=this.getSession().getMapper(SportsTeamMapper.class);
 	}
 	
 	public void enrollNewSportsTeam(SportsTeam sportsTeam, Student student) {
-		this.SportsTeamDAO.create(sportsTeam);
+		sportsTeamMapper.create(sportsTeam);
 		this.SportsTeamDAO.addStudentToSportsTeam(sportsTeam, student);
 	}
 	
 	public void createSportsTeam(SportsTeam sportsTeam) {
-		this.SportsTeamDAO.create(sportsTeam);
+		sportsTeamMapper.create(sportsTeam);
 	}
 	
 	public SportsTeam getSportsTeamByID(int Id) {
-		return this.SportsTeamDAO.selectById(Id);
+		return sportsTeamMapper.selectById(Id);
 	}
 	
 	public List<SportsTeam> getAllClasses() {
-		return this.SportsTeamDAO.selectAll();
+		return sportsTeamMapper.selectAll();
 	}
 	
 	public void updateSportsTeam(SportsTeam SportsTeam) {
-		this.SportsTeamDAO.update(SportsTeam);
+		sportsTeamMapper.update(SportsTeam);
 	}
 	
 	public void deleteClass(SportsTeam SportsTeam) {
-		this.SportsTeamDAO.delete(SportsTeam);
+		sportsTeamMapper.delete(SportsTeam);
 	}
 }

@@ -16,6 +16,19 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="/DatabasesPractice/src/main/resources/mappers/studentMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.StudentMapper"/>
+    <mapper resource="./mappers/studentMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.GymMapper"/>
+    <mapper resource="./mappers/gymMapper.xml"/>
+	<mapper class="com.laba.solvd.database.Mapper.ProfessorMapper"/>
+    <mapper resource="./mappers/professorMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.ResearchLabMapper"/>
+    <mapper resource="./mappers/researchLabMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.SportsTeamMapper"/>
+    <mapper resource="./mappers/sportsTeamMapper.xml"/>
+	<mapper class="com.laba.solvd.database.Mapper.TextBookMapper"/>
+    <mapper resource="./mappers/textBookMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.UniClassMapper"/>
+    <mapper resource="./mappers/uniClassMapper.xml"/>
   </mappers>
 </configuration>

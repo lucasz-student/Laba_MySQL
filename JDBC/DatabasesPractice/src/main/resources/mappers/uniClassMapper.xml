@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.laba.solvd.database.DAO.UniClassMapper">
+
+    <insert id="create" parameterType="com.laba.solvd.database.Model.UniClass">
+        INSERT INTO class(name, subject) VALUES (#{name}, #{subject})
+    </insert>
+
+    <select id="selectAll" resultType="com.laba.solvd.database.Model.UniClass">
+        SELECT * FROM class
+    </select>
+
+    <select id="selectById" resultType="com.laba.solvd.database.Model.UniClass">
+        SELECT * FROM class WHERE id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="com.laba.solvd.database.Model.UniClass">
+        DELETE FROM class WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.laba.solvd.database.Model.UniClass">
+		UPDATE class set name=#{name}, subject=#{subject} WHERE id=#{id}
+    </update>
+
+</mapper>

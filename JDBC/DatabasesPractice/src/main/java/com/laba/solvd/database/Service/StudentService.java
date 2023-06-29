@@ -1,8 +1,10 @@
 package com.laba.solvd.database.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.laba.solvd.database.DAO.StudentDAO;
+import com.laba.solvd.database.Mapper.StudentMapper;
 import com.laba.solvd.database.Model.Gym;
 import com.laba.solvd.database.Model.Professor;
 import com.laba.solvd.database.Model.ResearchLab;
@@ -10,16 +12,19 @@ import com.laba.solvd.database.Model.SportsTeam;
 import com.laba.solvd.database.Model.Student;
 import com.laba.solvd.database.Model.UniClass;
 
-public class StudentService {
+public class StudentService extends AbstractService {
 	
 	private StudentDAO StudentDAO;
+	private StudentMapper studentMapper;
 	
-	public StudentService(StudentDAO d) {
+	public StudentService(StudentDAO d) throws IOException {
+		super();
 		this.StudentDAO=d;
+		this.studentMapper=this.getSession().getMapper(StudentMapper.class);
 	}
 	
 	public void enrollNewStudent(Student student, Gym gym, Professor professor, ResearchLab researchLab, UniClass uniClass, SportsTeam sportsTeam) {
-		this.StudentDAO.create(student, gym);
+		studentMapper.create(student, gym);
 		this.StudentDAO.addProfessorToStudent(student, professor);
 		this.StudentDAO.addClassToStudent(student, uniClass);
 		this.StudentDAO.addResearchLabToStudent(student, researchLab);
@@ -27,19 +32,19 @@ public class StudentService {
 	}
 
 	public void createStudent(Student student, Gym gym) {
-		this.StudentDAO.create(student, gym);
+		studentMapper.create(student, gym);
 	}
 	
 	public void deleteStudent(Student student) {
-		this.StudentDAO.delete(student);
+		studentMapper.delete(student);
 	}
 	
 	public void updateStudent(Student student) {
-		this.StudentDAO.update(student);
+		studentMapper.update(student);
 	}
 	
 	public List<Student> getAllStudents() {
-		return this.StudentDAO.selectAll();
+		return studentMapper.selectAll();
 	}
 	
 	public void addProfessorToStudent(Student student, Professor professor) {

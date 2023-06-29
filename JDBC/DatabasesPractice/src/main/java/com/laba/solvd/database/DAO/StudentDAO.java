@@ -136,7 +136,6 @@ public class StudentDAO extends AbstractDAO<Student> implements ICreatableWithRe
 			ps.setInt(1, researchLab.getId());
 			ps.setInt(2, student.getId());
 			ps.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
