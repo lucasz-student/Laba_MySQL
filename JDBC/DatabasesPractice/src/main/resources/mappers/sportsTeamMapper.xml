@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laba.solvd.database.DAO.SportsTeamMapper">
+  
+  <insert id="create" parameterType="com.laba.solvd.database.Model.SportsTeam">
+    INSERT INTO sportsteam (sportName, gamesPlayed)
+    VALUES (#{sportName}, #{gamesPlayed})
+  </insert>
+  
+  <select id="selectAll">
+    SELECT * FROM sportsteam
+  </select>
+  
+  <select id="selectById" parameterType="int">
+    SELECT * FROM sportsteam WHERE id = #{id}
+  </select>
+  
+  <delete id="delete" parameterType="com.laba.solvd.database.Model.SportsTeam">
+    DELETE FROM sportsteam WHERE id = #{id}
+  </delete>
+  
+  <update id="update" parameterType="com.laba.solvd.database.Model.SportsTeam">
+    UPDATE sportsteam
+    SET sportName = #{sportName}, gamesPlayed = #{gamesPlayed}
+    WHERE id = #{id}
+  </update>
+  
+</mapper>

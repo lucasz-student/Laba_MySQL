@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laba.solvd.database.DAO.ResearchLabMapper">
+
+    <insert id="create" parameterType="com.laba.solvd.database.Model.ResearchLab">
+        INSERT INTO researchlab(papersPublished, age, name, topic) VALUES(#{papersPublished}, #{age}, #{name}, #{topic})
+    </insert>
+
+    <select id="selectAll">
+        SELECT * FROM researchlab
+    </select>
+
+    <select id="selectById" parameterType="int">
+        SELECT * FROM researchlab WHERE id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="com.laba.solvd.database.Model.ResearchLab">
+        DELETE FROM researchlab WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.laba.solvd.database.Model.ResearchLab">
+        UPDATE researchlab SET papersPublished = #{papersPublished}, age = #{age}, name = #{name}, topic = #{topic} WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -71,4 +71,9 @@ public class Professor {
 	public void removeResearchLab(ResearchLab lab) {
 		this.ResearchLabs.remove(lab);
 	}
+	
+	@Override
+	public String toString() {
+	    return "" + this.id + " " + this.name + " " + this.age;
+	}
 }

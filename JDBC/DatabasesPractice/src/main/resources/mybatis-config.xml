@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <properties resource="db.properties"/>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper class="com.laba.solvd.database.Mapper.StudentMapper"/>
+    <mapper resource="./mappers/studentMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.GymMapper"/>
+    <mapper resource="./mappers/gymMapper.xml"/>
+	<mapper class="com.laba.solvd.database.Mapper.ProfessorMapper"/>
+    <mapper resource="./mappers/professorMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.ResearchLabMapper"/>
+    <mapper resource="./mappers/researchLabMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.SportsTeamMapper"/>
+    <mapper resource="./mappers/sportsTeamMapper.xml"/>
+	<mapper class="com.laba.solvd.database.Mapper.TextBookMapper"/>
+    <mapper resource="./mappers/textBookMapper.xml"/>
+    <mapper class="com.laba.solvd.database.Mapper.UniClassMapper"/>
+    <mapper resource="./mappers/uniClassMapper.xml"/>
+  </mappers>
+</configuration>

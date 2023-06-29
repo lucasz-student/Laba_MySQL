@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laba.solvd.database.DAO.ProfessorMapper">
+
+    <insert id="create" parameterType="com.laba.solvd.database.Model.Professor">
+        INSERT INTO professor(name, age, Class_id) VALUES(#{name}, #{age}, #{uniClass.id})
+    </insert>
+
+    <select id="selectAll">
+        SELECT * FROM professor
+    </select>
+
+    <select id="selectById" parameterType="int">
+        SELECT * FROM professor WHERE id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="com.laba.solvd.database.Model.Professor">
+        DELETE FROM professor WHERE id=#{id}
+    </delete>
+
+    <update id="update" parameterType="com.laba.solvd.database.Model.Professor">
+        UPDATE professor set name=#{name}, age=#{age} WHERE id=#{id}
+    </update>
+
+    <update id="updateWithRelationship" parameterType="com.laba.solvd.database.Model.Professor">
+        UPDATE professor set name=#{name}, age=#{age}, Class_id=#{uniClass.id} WHERE id=#{id}
+    </update>
+</mapper>

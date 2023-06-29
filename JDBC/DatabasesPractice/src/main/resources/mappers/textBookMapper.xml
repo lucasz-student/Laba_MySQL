@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.laba.solvd.database.DAO.TextBookMapper">
+
+    <insert id="create" parameterType="com.laba.solvd.database.Model.TextBook">
+        INSERT INTO textbook(name, bookCondition) VALUES (#{textbook.name}, #{textbook.bookCondition})
+    </insert>
+
+    <select id="selectAll" resultType="com.laba.solvd.database.Model.TextBook">
+        SELECT * FROM textbook
+    </select>
+
+    <select id="selectById" resultType="com.laba.solvd.database.Model.TextBook">
+        SELECT * FROM textbook WHERE id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="com.laba.solvd.database.Model.TextBook">
+        DELETE FROM textbook WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.laba.solvd.database.Model.TextBook">
+		UPDATE textbook set name=#{name}, bookCondition=#{bookCondition} WHERE id=#{id}
+    </update>
+
+</mapper>
