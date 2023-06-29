@@ -57,4 +57,9 @@ public class TextBook {
 	public void setUniClass(UniClass class1) {
 		Class = class1;
 	}
+	
+	@Override
+	public String toString() {
+	    return id + " " + name + " " + bookCondition;
+	}
 }

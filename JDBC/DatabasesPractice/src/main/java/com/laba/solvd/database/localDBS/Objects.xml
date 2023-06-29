@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<University>
+
+    <Gyms>
+        <Gym id="1">
+            <location>Building A</location>
+            <price>16</price>
+            <gymAge>23</gymAge>
+      	</Gym>
+        <Gym id="2">
+            <location>Building B</location>
+            <price>39</price>
+            <gymAge>5</gymAge>
+        </Gym>
+        <Gym id="3">
+            <location>Building C</location>
+            <price>150</price>
+            <gymAge>1</gymAge>
+        </Gym>
+    </Gyms>
+
+    <Professors>
+        <Professor id="1">
+            <name>Dr.Eggs</name>
+            <age>45</age>
+            <UniClass id="1">
+                <name>Bio101</name>
+                <subject>Science</subject>
+            </UniClass>
+            <Students>
+                <Student id="1">
+                    <name>John</name>
+                    <yearJoined>2021</yearJoined>
+                    <major>Mathematics</major>
+                </Student>
+            </Students>
+            <ResearchLabs>
+                <ResearchLab id="1">
+                    <papersPublished>13</papersPublished>
+                    <age>1</age>
+                    <name>ScienceLab</name>
+                    <topic>Chemistry</topic>
+                </ResearchLab>
+            </ResearchLabs>
+        </Professor>
+    </Professors>
+
+    <Sportsteams>
+        <Sportsteam id="1">
+            <gamesPlayed>56</gamesPlayed>
+            <sportName>Basketball</sportName>
+            <Students>
+                <Student id="1">
+                    <name>John</name>
+                    <yearJoined>2021</yearJoined>
+                    <major>Mathematics</major>
+                </Student>
+            </Students>
+        </Sportsteam>
+    </Sportsteams>
+
+    <Textbooks>
+        <Textbook id="1">
+            <name>CollegePhysics</name>
+            <bookCondition>New</bookCondition>
+            <Student id="1">
+                <name>John</name>
+                <yearJoined>2021</yearJoined>
+                <major>Mathematics</major>
+            </Student>
+            <UniClass id="1">
+                <name>Bio101</name>
+                <subject>Science</subject>
+            </UniClass>
+        </Textbook>
+    </Textbooks>
+
+    <Uniclasses>
+        <Uniclass id="1">
+            <name>Physics</name>
+            <subject>Science</subject>
+            <Textbooks>
+                <Textbook id="1">
+                    <name>CollegePhysics</name>
+                    <bookCondition>New</bookCondition>
+                </Textbook>
+            </Textbooks>
+            <Students>
+                <Student id="1">
+                    <name>John</name>
+                    <yearJoined>2021</yearJoined>
+                    <major>Mathematics</major>
+                </Student>
+            </Students>
+            <Professor id="1">
+                <name>Dr.Eggs</name>
+                <age>45</age>
+            </Professor>
+        </Uniclass>
+    </Uniclasses>
+
+    <Researchlabs>
+        <Researchlab id="1">
+            <papersPublished>13</papersPublished>
+            <age>1</age>
+            <name>ScienceLab</name>
+            <topic>Chemistry</topic>
+            <Students>
+                <Student id="1">
+                    <name>John</name>
+                    <yearJoined>2021</yearJoined>
+                    <major>Mathematics</major>
+                </Student>
+            </Students>
+            <Professors>
+                <Professor id="1">
+                    <name>Dr.Eggs</name>
+                    <age>45</age>
+                </Professor>
+            </Professors>
+        </Researchlab>
+    </Researchlabs>
+</University>

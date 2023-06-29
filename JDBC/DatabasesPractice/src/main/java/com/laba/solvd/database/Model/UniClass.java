@@ -69,4 +69,9 @@ public class UniClass {
 	public void removeTextBook(TextBook textBook) {
 		this.textBooks.remove(textBook);
 	}
+	
+	@Override
+	public String toString() {
+	    return id + " " + name + " " + subject;
+	}
 }

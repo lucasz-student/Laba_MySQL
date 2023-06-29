@@ -1,0 +1,54 @@
+[
+    {
+        "Gyms": [
+            {
+                "id": 1,
+                "location": "Building A",
+                "price": 16,
+                "gymAge": 23
+            },
+			{
+                "id": 2,
+                "location": "Building C",
+                "price": 10,
+                "gymAge": 40
+            }
+        ]
+    },
+    {
+        "Professors": [
+            {
+                "id": 1,
+                "name": "Dr. Eggs",
+                "age": 45
+            }
+        ]
+    },
+    {
+        "Sportsteams": [
+            {
+                "id": 1,
+                "gamesPlayed": 56,
+                "sportsName": "Basketball"
+            }
+        ]
+    },
+    {
+        "Textbooks": [
+            {
+                "id": 1,
+                "name": "College Physics",
+                "bookCondition": "New"
+            }
+        ]
+    },
+    {
+        "Uniclasses": [
+            {
+                "id": 1,
+                "name": "Physics",
+                "subject": "Science"
+            }
+        ]
+    }
+]
